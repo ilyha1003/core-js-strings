@@ -138,132 +138,74 @@ function reverseWords(str) {
     .join(' ');
 }
 
-/**
- * Inverts the case of each character in the given string.
- *
- * @param {string} str - The input string.
- * @returns {string} - The string with the case of each character inverted.
- *
- * @example
- *   invertCase('Hello, World!') =>  'hELLO, wORLD!'
- *   invertCase('JavaScript is Fun') => 'jAVAsCRIPT IS fUN'
- *   invertCase('12345') => '12345'
- */
-function invertCase(/* str */) {
-  throw new Error('Not implemented');
+function invertCase(str) {
+  return str
+    .split('')
+    .map((el) =>
+      el === el.toUpperCase() ? el.toLowerCase() : el.toUpperCase()
+    )
+    .join('');
 }
 
-/**
- * Returns the result of string template and given parameters firstName and lastName.
- * Please do not use concatenation, use template string :
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/template_strings
- *
- * @param {string} firstName - The first name to include in the template.
- * @param {string} lastName - The last name to include in the template.
- * @return {string} - The formatted string generated from the template.
- *
- * @example
- *   getStringFromTemplate('John','Doe') => 'Hello, John Doe!'
- *   getStringFromTemplate('Chuck','Norris') => 'Hello, Chuck Norris!'
- */
-function getStringFromTemplate(/* firstName, lastName */) {
-  throw new Error('Not implemented');
+function getStringFromTemplate(firstName, lastName) {
+  return `Hello, ${firstName} ${lastName}!`;
 }
 
-/**
- * Extracts a name from template string 'Hello, First_Name Last_Name!'.
- *
- * @param {string} value - The input value.
- * @return {string} - The name extracted from the template.
- *
- * @example
- *   extractNameFromTemplate('Hello, John Doe!') => 'John Doe'
- *   extractNameFromTemplate('Hello, Chuck Norris!') => 'Chuck Norris'
- */
-function extractNameFromTemplate(/* value */) {
-  throw new Error('Not implemented');
+function extractNameFromTemplate(value) {
+  return value.split(', ')[1].slice(0, -1);
 }
 
-/**
- * Remove the first and last angle brackets from tag string
- *
- * @param {string} str - The input tag.
- * @return {string} - The tag without the first and last angle brackets.
- *
- * @example
- *   unbracketTag('<div>') => 'div'
- *   unbracketTag('<span>') => 'span'
- *   unbracketTag('<a>') => 'a'
- */
-function unbracketTag(/* str */) {
-  throw new Error('Not implemented');
+function unbracketTag(str) {
+  return str.slice(1).slice(0, -1);
 }
 
-/**
- * Extracts e-mails from single string with e-mails list delimited by semicolons
- *
- * @param {string} str - The input string.
- * @return {array} - The list of e-mails extracted from the string.
- *
- * @example
- *   'angus.young@gmail.com;brian.johnson@hotmail.com;bon.scott@yahoo.com'
- *   => [
- *      'angus.young@gmail.com',
- *      'brian.johnson@hotmail.com',
- *      'bon.scott@yahoo.com'
- *   ],
- *   'info@gmail.com' => ['info@gmail.com']
- */
-function extractEmails(/* str */) {
-  throw new Error('Not implemented');
+function extractEmails(str) {
+  return str.split(';');
 }
 
-/**
- * Encode specified string with ROT13 cipher
- * See details:  https://en.wikipedia.org/wiki/ROT13
- *
- * @param {string} str - The input string.
- * @return {string} - The ROT13 encoded string.
- *
- * @example
- *
- *   'hello' => 'uryyb'
- *   'Why did the chicken cross the road?' => 'Jul qvq gur puvpxra pebff gur ebnq?'
- *   'Gb trg gb gur bgure fvqr!' => 'To get to the other side!'
- *   'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
- *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
- *
- */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  return str
+    .split('')
+    .map((x) => {
+      if (x.charCodeAt() >= 65 && x.charCodeAt() <= 90) {
+        if (x.charCodeAt() >= 78) {
+          return String.fromCharCode(x.charCodeAt() - 13);
+        }
+        return String.fromCharCode(x.charCodeAt() + 13);
+      }
+      if (x.charCodeAt() >= 97 && x.charCodeAt() <= 122) {
+        if (x.charCodeAt() >= 110) {
+          return String.fromCharCode(x.charCodeAt() - 13);
+        }
+        return String.fromCharCode(x.charCodeAt() + 13);
+      }
+      return x;
+    })
+    .join('');
 }
 
-/**
- * Returns playid card id.
- *
- * Playing cards initial deck includes the cards in the following order:
- *
- *  'A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣',
- *  'A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦',
- *  'A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥',
- *  'A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠'
- *
- * (see https://en.wikipedia.org/wiki/Standard_52-card_deck)
- * Function returns the zero-based index of specified card in the initial deck above.
- *
- * @param {string} value - The card value.
- * @return {number} - The zero-based index.
- *
- * @example
- *   'A♣' => 0
- *   '2♣' => 1
- *   '3♣' => 2
- *     ...
- *   'Q♠' => 50
- *   'K♠' => 51
- */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const cardValue = [
+    'A',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    '10',
+    'J',
+    'Q',
+    'K',
+  ];
+  const cardSuit = ['♣', '♦', '♥', '♠'];
+
+  const number = cardValue.indexOf(value.slice(0, -1));
+  const suit = cardSuit.indexOf(value[value.length - 1]) * 13;
+
+  return number + suit;
 }
 
 module.exports = {
