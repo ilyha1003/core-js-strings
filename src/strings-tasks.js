@@ -22,241 +22,120 @@ function removeLeadingWhitespaces(value) {
   return value.trimStart();
 }
 
-/**
- * Removes only trailing whitespace characters from the string.
- *
- * @param {string} value - The input string to remove trailing whitespaces from.
- * @return {string} - The string with trailing whitespaces removed.
- *
- * @example
- *   removeTrailingWhitespaces('  Abracadabra') => '  Abracadabra'
- *   removeTrailingWhitespaces('cat ') => 'cat'
- *   removeTrailingWhitespaces('\t\t\tHello, World! ') => '\t\t\tHello, World!'
- */
-function removeTrailingWhitespaces(/* value */) {
-  throw new Error('Not implemented');
+function removeTrailingWhitespaces(value) {
+  return value.trimEnd();
 }
 
-/**
- * Returns a string that is repeated the specified number of times.
- *
- * @param {string} str - The string to repeat.
- * @param {number} times - The number of times to repeat the string.
- * @return {string} - The result string.
- *
- * @example
- *   repeatString('A', 5) => 'AAAAA'
- *   repeatString('cat', 3) => 'catcatcat'
- *   repeatString('', 3) => ''
- *   repeatString('abc', -2) => ''
- */
-function repeatString(/* str, times */) {
-  throw new Error('Not implemented');
+function repeatString(str, times) {
+  return times > 0 ? str.repeat(times) : '';
 }
 
-/**
- * Remove the first occurrence of a substring from a string.
- *
- * @param {string} str - The input string.
- * @param {string} value - The substring to remove from the string.
- * @return {string} - The string with the first occurrence of the substring removed.
- *
- * @example
- *   removeFirstOccurrences('To be or not to be', 'be') => 'To  or not to be'.
- *   removeFirstOccurrences('I like legends', 'end') => 'I like legs'.
- *   removeFirstOccurrences('ABABAB', 'BA') => 'ABAB'.
- */
-function removeFirstOccurrences(/* str, value */) {
-  throw new Error('Not implemented');
+function removeFirstOccurrences(str, value) {
+  return str.indexOf(value) >= 0 ? str.replace(value, '') : str;
 }
 
-/**
- * Remove the last occurrence of a substring from a string.
- *
- * @param {string} str - The input string.
- * @param {string} value - The substring to remove from the string.
- * @return {string} - The string with the last occurrence of the substring removed.
- *
- * @example
- *   removeLastOccurrences('To be or not to be', 'be') => 'To be or not to '.
- *   removeLastOccurrences('I like legends', 'end') => 'I like legs'.
- *   removeLastOccurrences('ABABAB', 'BA') => 'ABAB'.
- */
-function removeLastOccurrences(/* str, value */) {
-  throw new Error('Not implemented');
+function removeLastOccurrences(str, value) {
+  const reversedStr = str.split('').reverse().join('');
+  const reversedValue = value.split('').reverse().join('');
+  const newStr = reversedStr
+    .replace(reversedValue, '')
+    .split('')
+    .reverse()
+    .join('');
+  return str.lastIndexOf(value) >= 0 ? newStr : str;
 }
 
-/**
- * Calculate the sum of character codes of the given string.
- *
- * @param {string} str - The input string.
- * @return {number} - The sum of character codes of the string.
- *
- * @example
- *   sumOfCodes('My String') => 861 (77 + 121 + 32 + 83 + 116 + 114 + 105 + 110 + 103 = 861)
- *   sumOfCodes('12345') => 255 (49 + 50 + 51 + 52 + 53 = 255)
- *   sumOfCodes('') => 0
- *   sumOfCodes() => 0
- */
-function sumOfCodes(/* str */) {
-  throw new Error('Not implemented');
+function sumOfCodes(str) {
+  let sum = null;
+  if (typeof str === 'string') {
+    for (let i = 0; i < str.length; i += 1) {
+      sum += str.charCodeAt(i);
+    }
+  }
+  return sum == null ? 0 : sum;
 }
 
-/**
- * Checks if a string starts with a specific substring.
- *
- * @param {string} str - The input string.
- * @param {string} substr - The substring to check.
- * @return {boolean} - Returns true if str starts with substr, false otherwise.
- *
- * @example:
- *   startsWith('Hello World', 'World') => false
- *   startsWith('Hello World', 'Hello') => true
- */
-function startsWith(/* str, substr */) {
-  throw new Error('Not implemented');
+function startsWith(str, substr) {
+  return str.startsWith(substr);
 }
 
-/**
- * Checks if a string ends with a specific substring.
- *
- * @param {string} str - The input string.
- * @param {string} substr - The substring to check.
- * @return {boolean} - Returns true if str starts with substr, false otherwise.
- *
- * @example:
- *   endsWith('Hello World', 'World') => true
- *   endsWith('Hello World', 'Hello') => false
- */
-function endsWith(/* str, substr */) {
-  throw new Error('Not implemented');
+function endsWith(str, substr) {
+  return str.endsWith(substr);
 }
 
-/**
- * Returns a time string in the "mm:ss" format.
- *
- * @param {number} minutes - The number of minutes (non-negative integer).
- * @param {number} seconds - The number of seconds (non-negative integer).
- * @return {string} - The time string in the "mm:ss" format.
- *
- * @example
- *   formatTime(5, 30) => "05:30"
- *   formatTime(1, 15) => "01:15"
- *   formatTime(0, 45) => "00:45"
- *   formatTime(0, 0) => "00:00"
- */
-function formatTime(/* minutes, seconds */) {
-  throw new Error('Not implemented');
+function formatTime(minutes, seconds) {
+  let finalMinutes = null;
+  let finalSeconds = null;
+
+  if (minutes < 10) {
+    finalMinutes = String(minutes).padStart(2, '0');
+    if (seconds < 10) {
+      finalSeconds = String(seconds).padStart(2, '0');
+    } else {
+      finalSeconds = seconds;
+    }
+  } else {
+    finalMinutes = minutes;
+    if (seconds < 10) {
+      finalSeconds = String(seconds).padStart(2, '0');
+    } else {
+      finalSeconds = seconds;
+    }
+  }
+  return finalMinutes.concat(':', finalSeconds);
 }
 
-/**
- * Returns a string in reverse order.
- *
- * @param {string} str - The input string.
- * @return {string} - The string in reverse order.
- *
- * @example:
- *   reverseString('abcdef') => 'fedcba'
- *   reverseString('12345') => '54321'
- */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  return str.split('').reverse().join('');
 }
 
-/**
- * Returns a string with characters in alphabetical order.
- *
- * @param {string} str - The input string.
- * @return {string} - The string in alphabetical order.
- *
- * @example:
- *   orderAlphabetically('webmaster') => 'abeemrstw'
- *   orderAlphabetically('textbook') => 'bekoottx'
- *   orderAlphabetically('abc123xyz') => '123abcxyz'
- */
-function orderAlphabetically(/* str */) {
-  throw new Error('Not implemented');
+function orderAlphabetically(str) {
+  return str.split('').sort().join('');
 }
 
-/**
- * Checks if a given string contains a specified substring.
- *
- * @param {string} str - The input string to search within.
- * @param {string} substring - The substring to check for in the input string.
- * @returns {boolean} - True if the input string contains the specified substring, false otherwise.
- *
- * @example
- *   containsSubstring('Hello, World!', 'World') => true
- *   containsSubstring('JavaScript is Fun', 'Python') => false
- *   containsSubstring('12345', '34') => true
- */
-function containsSubstring(/* str, substring */) {
-  throw new Error('Not implemented');
+function containsSubstring(str, substring) {
+  return str.includes(substring);
 }
 
-/**
- * Returns the number of vowels in the string.
- * Vowels: 'a', 'e', 'i', 'o', 'u', 'y', 'A', 'E', 'I', 'O', 'U', 'Y'.
- *
- * @param {string} str - The input string.
- * @return {number} - The number of vowels in the string.
- *
- * @example:
- *   countVowels('apple')  => 2
- *   countVowels('banana') => 3
- *   countVowels('cherry') => 2
- *   countVowels('aEiOu') => 5
- *   countVowels('XYZ') => 1
- */
-function countVowels(/* str */) {
-  throw new Error('Not implemented');
+function countVowels(str) {
+  let counter = 0;
+  const vowels = ['a', 'e', 'i', 'o', 'u', 'y', 'A', 'E', 'I', 'O', 'U', 'Y'];
+  for (let i = 0; i < str.length; i += 1) {
+    for (let j = 0; j < vowels.length; j += 1) {
+      if (str[i] === vowels[j]) {
+        counter += 1;
+      }
+    }
+  }
+  return counter;
 }
 
-/**
- * Returns true if the string is a palindrome; otherwise false.
- * https://en.wikipedia.org/wiki/Palindrome
- *
- * @param {string} str - The input string.
- * @return {bool} - True if the string is a palindrome, false otherwise.
- *
- * @example:
- *   isPalindrome('madam') => true
- *   isPalindrome('racecar') => true
- *   isPalindrome('apple') => false
- *   isPalindrome('No lemon, no melon') => true
- */
-function isPalindrome(/* str */) {
-  throw new Error('Not implemented');
+function isPalindrome(str) {
+  const reverseStr = str
+    .toLowerCase()
+    .replace(/[,?! ]/g, '')
+    .split('')
+    .reverse()
+    .join('');
+  return reverseStr === str.toLowerCase().replace(/[,?! ]/g, '');
 }
 
-/**
- * Find the longest word in the sentence. If there are multiple longest words,
- * the function returns the first one encountered.
- *
- * @param {string} sentence - The input sentence.
- * @returns {string} - The longest word in the sentence.
- *
- * @example:
- *   findLongestWord('The quick brown fox') => 'quick'
- *   findLongestWord('A long and winding road') => 'winding'
- *   findLongestWord('No words here') => 'words'
- */
-function findLongestWord(/* sentence */) {
-  throw new Error('Not implemented');
+function findLongestWord(sentence) {
+  const words = sentence.split(' ');
+  let longestWord = '';
+  for (let i = 0; i < words.length; i += 1) {
+    if (words[i].length > longestWord.length) {
+      longestWord = words[i];
+    }
+  }
+  return longestWord;
 }
 
-/**
- * Returns the string where each word is reversed.
- *
- * @param {string} str - The input string.
- * @return {string} - The string where each word is reversed.
- *
- * @example:
- *   reverseWords('Hello World') => 'olleH dlroW'
- *   reverseWords('The Quick Brown Fox') => 'ehT kciuQ nworB xoF'
- */
-function reverseWords(/* str */) {
-  throw new Error('Not implemented');
+function reverseWords(str) {
+  return str
+    .split(' ')
+    .map((el) => el.split('').reverse().join(''))
+    .join(' ');
 }
 
 /**
